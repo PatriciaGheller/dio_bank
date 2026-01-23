@@ -1,22 +1,20 @@
 from flask import Flask
-from flask import Flask, jsonify
+from flask import Flask
 from flask import url_for, request
-from flask import jsonify
+
 
 app = Flask(__name__)
-app.config["JSON_AS_ASCII"] = False
 
 @app.route("/funcionando/<usuario>/<int:idade>/<float:altura>")
 def home(usuario, idade, altura):
-    print(idade)
-    print(f' tipo da variável idade: {type(idade)}')
-    print(f' tipo da variável usuário: {type(usuario)}')
-    print(f' tipo da variável altura: {type(altura)}')
-    return f"<h1>Olá usuário: {usuario.upper()}! O Flask está funcionando!</h1>"
+    return {"Usuário": usuario, 
+            "Idade": idade, 
+            "Altura": altura, 
+            }
 
 @app.route("/api/saudacao")
 def saudacao():
-    return jsonify(mensagem="Olá, Patrícia! Sua API está funcionando")
+    return {"mensagem": "Olá, Patrícia! Sua API está funcionando"}
 
 @app.route("/projects/")
 def projects():
