@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Created by https://www.toptal.com/developers/gitignore/api/python,flask
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,flask
 
@@ -260,3 +261,21 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,flask
+=======
+# Ambientes virtuais
+.venv/
+__pycache__/
+*.pyc
+
+# Arquivos de cache
+*.pyo
+*.pyd
+*.db
+*.log
+
+# Configurações locais
+.env
+*.sqlite3
+
+
+>>>>>>> a088534 (Adiciona .gitignore e limpa arquivos desnecessários)
