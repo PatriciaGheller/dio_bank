@@ -46,7 +46,7 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        SQLALCHEMY_DATABASE_URI='sqlite:///dio_bank.sqlite',
+        SQLALCHEMY_DATABASE_URI='sqlite:///blog.sqlite',
     )
 
     if test_config is None:
@@ -67,4 +67,9 @@ def create_app(test_config=None):
     # Initialize extensions
     db.init_app(app)
 
+    # Register blueprints
+    from dio_bank.src.controllers import user
+    from dio_bank.src.controllers import post
+    app.register_blueprint(user.app)
+    #app.register_blueprint(post.app)
     return app
