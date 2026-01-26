@@ -30,3 +30,11 @@ def handle_user():
         return {'message': 'User created successfully'}, HTTPStatus.CREATED
     else:
         return {'users': _list_users()}
+    
+@app.route('/<int:user_id>')
+def get_user(user_id):
+    user = db.get_or_404(User, user_id)
+    return {
+        'id': user.id,
+        'username': user.username,
+        }
