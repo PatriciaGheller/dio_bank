@@ -28,6 +28,7 @@ def _list_posts():
             "title": post.title,
             "body": post.body,
             "author_id": post.author_id,
+            "author_username": post.author.username if post.author else None,
             "created": post.created.isoformat() if post.created else None,
         }
         for post in posts
@@ -50,6 +51,7 @@ def get_post(post_id):
         "title": post.title,
         "body": post.body,
         "author_id": post.author_id,
+        "author_username": post.author.username if post.author else None,
         "created": post.created.isoformat() if post.created else None,
     }
 

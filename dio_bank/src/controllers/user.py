@@ -3,6 +3,8 @@ from dio_bank.src.app import User, db
 from http import HTTPStatus
 from sqlalchemy import inspect
 
+from dio_bank.src.controllers import post
+
 app = Blueprint('user', __name__, url_prefix='/users')
 
 def _create_user():
@@ -17,10 +19,19 @@ def _list_users():
     users = db.session.execute(query).scalars()
     return [
         {
-            'id': User.id, 
-            'username': User.username,
+            'id': user.id, 
+            'username': user.username,
+            'posts': [ 
+                { 
+                    'id': post.id,  
+                    'title': post.title, 
+                    'body': post.body, 
+                    'created': post.created.isoformat() if post.created else None, 
+                } 
+                for post in user.posts 
+            ]
         } 
-        for User in users 
+        for user in users 
     ]
     
 
@@ -32,13 +43,24 @@ def list_or_create_user():
     else:
         return {'users': _list_users()}
     
-@app.route('/<int:user_id>')
+@app.route('/<int:user_id>', methods=['GET'])
 def get_user(user_id):
-    user = db.get_or_404(User, user_id)
+    user = db.session.get(User, user_id)
+    if not user:
+        return {'error': 'User not found'}, HTTPStatus.NOT_FOUND
     return {
         'id': user.id,
         'username': user.username,
+        'posts': [ 
+            { 
+                'id': post.id, 
+                'title': post.title, 
+                'body': post.body, 
+                'created': post.created.isoformat() if post.created else None,
         }
+        for post in user.posts 
+    ]
+}
     
     
 @app.route('/<int:user_id>', methods=['PATCH'])
