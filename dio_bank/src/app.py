@@ -19,6 +19,9 @@ class User(db.Model):
     id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
     username: Mapped[str] = mapped_column(sa.String, unique=True)
     
+    # relação com Post 
+    posts: Mapped[list["Post"]] = db.relationship("Post", back_populates="author")
+    
     def __repr__(self) -> str:
         return f"User(id={self.id!r}, username={self.username!r})"
 
@@ -28,6 +31,9 @@ class Post(db.Model):
     body: Mapped[str] = mapped_column(sa.String, nullable=False)
     created: Mapped[datetime] = mapped_column(sa.DateTime, server_default=sa.func.now())
     author_id: Mapped[int] = mapped_column(sa.Integer, sa.ForeignKey('user.id'))
+    
+    # relação inversa 
+    author: Mapped["User"] = db.relationship("User", back_populates="posts")
     
     def __repr__(self) -> str:
         return f"Post(id={self.id!r}, title={self.title!r}, author_id={self.author_id!r})"
@@ -71,5 +77,5 @@ def create_app(test_config=None):
     from dio_bank.src.controllers import user
     from dio_bank.src.controllers import post
     app.register_blueprint(user.app)
-    #app.register_blueprint(post.app)
+    app.register_blueprint(post.bp)
     return app
