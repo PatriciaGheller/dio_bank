@@ -10,36 +10,26 @@ O projeto foi construído durante práticas de desenvolvimento de APIs com Pytho
 # 🚀 Funcionalidades
 
 ### - CRUD de Usuários
-
- - Criar, listar, buscar, atualizar e deletar usuários
-
+- Criar, listar, buscar, atualizar e deletar usuários
 ### - CRUD de Posts
-
 - Criar, listar, buscar, atualizar e deletar posts
-
 ### - Relação entre Usuários ↔ Posts
-
 - Cada post pertence a um usuário
-
 - Cada usuário pode ter vários posts
-
 ### - Respostas enriquecidas:
-
 - Posts retornam o author_username
-
 - Usuários retornam seus posts
+- Migrations com Alembic & Flask-Migrate
 
 # 🛠️ Tecnologias utilizadas
 
 - [Python 3.12](https://www.python.org/)
-
 - [Flask](https://flask.palletsprojects.com/)
-
 - [SQLAlchemy](https://www.sqlalchemy.org/)
-
 - [SQLite](https://www.sqlite.org/)
-
 - [Insomnia](https://insomnia.rest/)
+- [Alembic](https://alembic.sqlalchemy.org/) 
+- [Flask-Migrate](https://flask-migrate.readthedocs.io/)
 
 # 📂 Estrutura do projeto
 
@@ -135,11 +125,36 @@ flask run
 
 4. Teste os endpoints com Insomnia ou cURL.
 
+5. Gerenciar banco de dados com Flask-Migrate
+
+## Inicializar migrações
+
+- flask --app dio_bank.src.app:create_app db init
+
+Criar nova migração
+
+- flask --app dio_bank.src.app:create_app db migrate -m "Initial migration"
+
+Aplicar migração
+
+- flask --app dio_bank.src.app:create_app db upgrade
+
+Verificar estado do banco
+
+- flask --app dio_bank.src.app:create_app db check
+
+Reverter última migração
+
+- flask --app dio_bank.src.app:create_app db downgrade
+
+
 # 🎯 Próximos passos
 
 - Adicionar comentários nos posts
 
 - Implementar autenticação (JWT)
+
+- Implementar autorização (controle de acesso por usuário/role)
 
 - Criar documentação automática com Swagger/OpenAPI
 
