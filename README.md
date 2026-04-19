@@ -1,3 +1,4 @@
+
 # 📘 DIO Bank API 🏦
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python)
@@ -21,49 +22,25 @@ O projeto foi construído durante práticas de desenvolvimento de APIs com Pytho
 
 ---
 
-## 🛠️ Tecnologias utilizadas
+### - CRUD de Usuários
 
-- [Python 3.12](https://www.python.org/)  
-- [Flask](https://flask.palletsprojects.com/)  
-- [SQLAlchemy](https://www.sqlalchemy.org/)  
-- [PostgreSQL](https://www.postgresql.org/)  
-- [Insomnia](https://insomnia.rest/)  
-- [Alembic](https://alembic.sqlalchemy.org/)  
-- [Flask-Migrate](https://flask-migrate.readthedocs.io/)
-- - [Render](https://render.com/) → plataforma de deploy em nuvem. Permite **publicar aplicações Flask** e acessá-las remotamente por um endereço de servidor. Ideal para colocar produtos em produção e disponibilizar para todos.
-- [DBeaver](https://dbeaver.io/) → ferramenta de administração de banco de dados. Usada para **visualizar, editar e gerenciar** o PostgreSQL da aplicação.
+- Criar, listar, buscar, atualizar e deletar usuários
 
----
+### - CRUD de Posts
 
-## 🌐 Deploy
+- Criar, listar, buscar, atualizar e deletar posts
 
-A aplicação está publicada no **Render** e pode ser acessada remotamente pelo seguinte endereço:
+### - Relação entre Usuários ↔ Posts
 
-👉 [Acessar aplicação](https://dio-bank-868m.onrender.com)
+- Cada post pertence a um usuário
 
----
+- Cada usuário pode ter vários posts
 
-## 📂 Estrutura do projeto
+### - Respostas enriquecidas
 
-dio_bank/
-│
-├── src/
-│   ├── app.py              # Configuração principal da aplicação Flask
-│   ├── wsgi.py             # Ponto de entrada WSGI
-│   ├── utils.py            # Funções auxiliares
-│   ├── models/             # Definição das classes User, Role e Post
-│   │   ├── user.py
-│   │   ├── role.py
-│   │   └── post.py
-│   └── controllers/        # Rotas e lógica de negócio
-│       ├── auth.py
-│       ├── user.py
-│       ├── role.py
-│       └── post.py
-│
-├── migrations/             # Controle de versão do banco (Alembic)
-├── tests/                  # Testes de integração
-└── README.md               # Documentação do projeto
+- Posts retornam o author_username
+
+- Usuários retornam seus posts
 
 ---
 
@@ -71,19 +48,27 @@ dio_bank/
 
 ### 👤 Usuários
 
-- `POST /users` → cria usuário  
-- `GET /users` → lista todos os usuários (com posts)  
-- `GET /users/<id>` → busca usuário específico (com posts)  
-- `PATCH /users/<id>` → atualiza usuário  
-- `DELETE /users/<id>` → remove usuário  
+- POST /users → cria usuário
+
+- GET /users → lista todos os usuários (com posts)
+
+- GET /users/<id> → busca usuário específico (com posts)
+
+- PATCH /users/<id> → atualiza usuário
+
+- DELETE /users/<id> → remove usuário 
 
 ### 📝 Posts
 
-- `POST /posts` → cria post vinculado a um usuário  
-- `GET /posts` → lista todos os posts (com nome do autor)  
-- `GET /posts/<id>` → busca post específico  
-- `PATCH /posts/<id>` → atualiza post  
-- `DELETE /posts/<id>` → remove post  
+- POST /posts → cria post vinculado a um usuário
+
+- GET /posts → lista todos os posts (com nome do autor)
+
+- GET /posts/<id> → busca post específico
+
+- PATCH /posts/<id> → atualiza post
+
+- DELETE /posts/<id> → remove post
 
 ### 🔑 Roles
 
@@ -107,7 +92,6 @@ POST /roles
 
 ### Criar usuário
 
-
 POST /users
 {
   "username": "Breno",
@@ -118,18 +102,40 @@ POST /users
 
 ## Criar post
 
-POST /posts
+│   ├── models.py           # Definição das classes User e Post
+│   └── controllers/
+│       ├── user.py         # Rotas e lógica de usuários
+│       └── post.py         # Rotas e lógica de posts
+│
+└── README.md               # Documentação do projeto
+
+---
+
+### Listar usuários
+
+GET /users
 {
-  "title": "Meu primeiro post",
-  "body": "Estou aprendendo Flask!",
-  "author_id": 2
+  "users": [
+    {
+      "id": 2,
+      "username": "Breno",
+      "posts": [
+        {
+          "id": 2,
+          "title": "Meu primeiro post",
+          "body": "Estou aprendendo Flask!",
+          "created": "2026-01-27T21:31:53"
+        }
+      ]
+    }
+  ]
 }
 
 ## 📌 Como rodar o projeto
 
 1. Clone este repositório:
 
-git clone https://github.com/seu-usuario/dio-bank-api.git
+git clone https://github.com/PatriciaGheller/dio_bank.git
 cd dio-bank-api
 
 2. Crie o ambiente virtual com Poetry:
@@ -151,11 +157,60 @@ poetry run flask --app src/app db upgrade
 
 poetry run flask --app src/app run
 
-## 🎯 Próximos passos
+6. Teste os endpoints com Insomnia ou cURL.
+
+## 🛠️ Tecnologias utilizadas
+
+- [Python 3.12](https://www.python.org/)  
+- [Flask](https://flask.palletsprojects.com/)  
+- [SQLAlchemy](https://www.sqlalchemy.org/)  
+- [PostgreSQL](https://www.postgresql.org/)  
+- [Insomnia](https://insomnia.rest/)  
+- [Alembic](https://alembic.sqlalchemy.org/)  
+- [Flask-Migrate](https://flask-migrate.readthedocs.io/)
+- - [Render](https://render.com/) → plataforma de deploy em nuvem. Permite **publicar aplicações Flask** e acessá-las remotamente por um endereço de servidor. Ideal para colocar produtos em produção e disponibilizar para todos.
+- [DBeaver](https://dbeaver.io/) → ferramenta de administração de banco de dados. Usada para **visualizar, editar e gerenciar** o PostgreSQL da aplicação.
+
+---
+
+## 🌐 Deploy
+
+A aplicação está publicada no **Render** e pode ser acessada remotamente pelo seguinte endereço:
+
+👉 [Acessar aplicação](https://dio-bank-868m.onrender.com)
+
+---
+
+# 📂 Estrutura do projeto
+
+dio_bank/
+│
+├── src/
+│   ├── app.py              # Configuração principal da aplicação Flask
+
+│   ├── wsgi.py             # Ponto de entrada WSGI
+│   ├── utils.py            # Funções auxiliares
+│   ├── models/             # Definição das classes User, Role e Post
+│   │   ├── user.py
+│   │   ├── role.py
+│   │   └── post.py
+│   └── controllers/        # Rotas e lógica de negócio
+│       ├── auth.py
+│       ├── user.py
+│       ├── role.py
+│       └── post.py
+│
+├── migrations/             # Controle de versão do banco (Alembic)
+├── tests/                  # Testes de integração
+└── README.md               # Documentação do projeto
+
+---
+
+# 🎯 Próximos passos
 
 - Adicionar comentários nos posts
 
-- Implementar autenticação (JWT)
+- Implementar autenticação (JWT)![alt text](image.png)
 
 - Implementar autorização (controle de acesso por usuário/role)
 
@@ -163,6 +218,6 @@ poetry run flask --app src/app run
 
 - Implementar paginação em listagens
 
-## 👩‍💻 Autora
+# 👩‍💻 Autora
 
 Projeto desenvolvido por Patrícia Gheller como parte dos estudos de desenvolvimento de APIs com Flask.
