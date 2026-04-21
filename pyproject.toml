@@ -28,6 +28,11 @@ flask = "^3.1.2"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
 flask-jwt-extended = "^4.7.1"
+pytest = "*"
+
+[pytest]
+addopts = "-ra -vvv"
+testpaths = ["tests"]
 
 
 [build-system]
@@ -36,5 +41,6 @@ build-backend = "poetry.core.masonry.api"
 
 [dependency-groups]
 dev = [
-    "black (>=26.1.0,<27.0.0)"
+    "black (>=26.1.0,<27.0.0)",
+    "pytest (>=9.0.3,<10.0.0)"
 ]
