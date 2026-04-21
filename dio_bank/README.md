@@ -6,6 +6,7 @@
 ![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow)
 
 ## 📌 Sobre o projeto
+
 Aplicação backend desenvolvida em Flask para estudo de APIs REST, incluindo conexão com banco de dados SQLite e gerenciamento de migrações de banco de dados.
 
 ## 🔗 Links
@@ -15,7 +16,7 @@ Aplicação backend desenvolvida em Flask para estudo de APIs REST, incluindo co
 
 ## 🚀 Tecnologias utilizadas
 
-- Python 3.x
+- Python 3.14
 - Flask
 - SQLite
 - Poetry
@@ -53,6 +54,7 @@ Desenvolvimento-de-APIs-flask/
    git clone https://github.com/PatriciaGheller/flask.git
 
 2. Instale as dependências com Poetry:
+
 poetry install
 
 ## 🗄️ Banco de dados
@@ -70,12 +72,53 @@ O schema inicial está definido em schema.sql.
 
 ## ▶️ Executando a aplicação
 
+1. Clone este repositório:
+
+git clone <https://github.com/seu-usuario/dio-bank-api.git>
+cd dio-bank-api
+
+1. Crie o ambiente virtual com Poetry:
+
+poetry install
+
+1. Execute a aplicação:
+
+flask run
+
+1. Teste os endpoints com Insomnia ou cURL.
+
+2. Gerenciar banco de dados com Flask-Migrate
+
 Para rodar o servidor em modo debug:
 
 poetry run flask --app dio_bank.src.app run --debug
 
 A aplicação estará disponível em:
 <http://127.0.0.1:5000>
+
+---
+
+## Inicializar migrações
+
+- flask --app dio_bank.src.app:create_app db init
+
+Criar nova migração
+
+- flask --app dio_bank.src.app:create_app db migrate -m "Initial migration"
+
+Aplicar migração
+
+- flask --app dio_bank.src.app:create_app db upgrade
+
+Verificar estado do banco
+
+- flask --app dio_bank.src.app:create_app db check
+
+Reverter última migração
+
+- flask --app dio_bank.src.app:create_app db downgrade
+
+---
 
 ## 📡 Endpoints principais
 
@@ -85,11 +128,11 @@ A aplicação estará disponível em:
 
 - POST /users → Cria um novo usuário
 
-- GET /users/<id> → Detalhes de um usuário específico
+- GET /users/id → Detalhes de um usuário específico
 
-- PUT /users/<id> → Atualiza dados de um usuário
+- PUT /users/id → Atualiza dados de um usuário
 
-- DELETE /users/<id> → Remove um usuário
+- DELETE /users/id → Remove um usuário
 
 ### Posts
 
@@ -97,11 +140,11 @@ A aplicação estará disponível em:
 
 - POST /posts → Cria um novo post
 
-- GET /posts/<id> → Detalhes de um post específico
+- GET /posts/id → Detalhes de um post específico
 
-- PUT /posts/<id> → Atualiza um post
+- PUT /posts/id → Atualiza um post
 
-- DELETE /posts/<id> → Remove um post
+- DELETE /posts/id → Remove um post
 
 ## 🧪 Testes
 
@@ -116,8 +159,8 @@ poetry run pytest
 Criando um usuário via curl:
 
 curl -X POST <http://127.0.0.1:5000/users> \
-     -H "Content-Type: application/json" \
-     -d '{"name": "Patricia", "email": "<patricia@example.com>"}'
+-H "Content-Type: application/json" \
+-d '{"name": "Patricia", "email": "<patricia@example.com>"}'
 
 Resposta esperada:
 
@@ -146,4 +189,3 @@ LinkedIn: <https://www.linkedin.com/in/patriciagheller> (linkedin.com in Bing)
 ## 📜 Licença
 
 Este projeto é apenas para fins de estudo e aprendizado.
-
