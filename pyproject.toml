@@ -29,6 +29,7 @@ flask-sqlalchemy = "*"
 flask-migrate = "*"
 flask-jwt-extended = "^4.7.1"
 pytest = "*"
+pytest-mock = "*"
 
 [pytest]
 addopts = "-ra -vvv"

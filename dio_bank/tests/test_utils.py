@@ -1,5 +1,4 @@
 from http import HTTPStatus
-from unittest.mock import Mock, patch
 
 import pytest
 from dio_bank.src.utils import eleva_quadrado, requires_role
@@ -24,40 +23,34 @@ def test_eleva_quadrado_falha(test_input,exc_class,msg):
 
 
 
-def test_require_role_sucess():
-    mock_user = Mock()
+def test_require_role_sucess(mocker):
+    #Given
+    mock_user = mocker.Mock()
     mock_user.role.name = "admin"
-
-    mock_get_jwt_identity = patch("dio_bank.src.utils.get_jwt_identity")
-    mock_db_get_or_404 = patch("dio_bank.src.utils.db.get_or_404", return_value=mock_user)
-    mock_get_jwt_identity.start()
-    mock_db_get_or_404.start()
     
+    mocker.patch("dio_bank.src.utils.get_jwt_identity")
+    mocker.patch("dio_bank.src.utils.db.get_or_404", return_value=mock_user)
     decorated_function = requires_role("admin")(lambda: "success")
+    #When
     result = decorated_function()
     
+    #Then
     assert result == "success"
     
 
-    mock_get_jwt_identity.stop()
-    mock_db_get_or_404.stop()
-    
-    
-def test_require_role_fail():
-    mock_user = Mock()
+def test_require_role_fail(mocker):
+    #Given
+    mock_user = mocker.Mock()
     mock_user.role.name = "normal"
-
-    mock_get_jwt_identity = patch("dio_bank.src.utils.get_jwt_identity")
-    mock_db_get_or_404 = patch("dio_bank.src.utils.db.get_or_404", return_value=mock_user)
-    mock_get_jwt_identity.start()
-    mock_db_get_or_404.start()
     
+    #When
+    mocker.patch("dio_bank.src.utils.get_jwt_identity")
+    mocker.patch("dio_bank.src.utils.db.get_or_404", return_value=mock_user)
     decorated_function = requires_role("admin")(lambda: "success")
     
     result = decorated_function()
-        
+    
+    #Then
     assert result == ({'message': 'User dont have access.'}, HTTPStatus.FORBIDDEN)
 
 
-    mock_get_jwt_identity.stop()
-    mock_db_get_or_404.stop() 
