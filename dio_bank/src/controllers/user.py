@@ -72,6 +72,7 @@ def get_user(user_id):
     return {
         'id': user.id,
         'username': user.username,
+        'role_id': user.role_id,
         'posts': [ 
             { 
                 'id': post.id, 
