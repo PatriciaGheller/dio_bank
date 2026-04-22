@@ -30,7 +30,7 @@ def test_require_role_sucess(mocker):
     
     mocker.patch("dio_bank.src.utils.get_jwt_identity")
     mocker.patch("dio_bank.src.utils.db.get_or_404", return_value=mock_user)
-    decorated_function = requires_role("admin")(lambda: "success")
+    decorated_function = requires_role("admin")(lambda: "success") 
     #When
     result = decorated_function()
     
