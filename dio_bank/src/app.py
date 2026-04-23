@@ -67,7 +67,7 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY='dev',
         SQLALCHEMY_DATABASE_URI='sqlite:///blog.sqlite',
-        JWT_SECRET_KEY='super-secret',
+        JWT_SECRET_KEY='minha_chave_super_secreta_de_32_caracteres_ou_mais',
     )
 
     if test_config is None:

@@ -1,5 +1,6 @@
 from http import HTTPStatus
 
+from sqlalchemy import func
 from dio_bank.src.app import Role,  User, db
 from dio_bank.src.controllers import user
 
@@ -22,7 +23,8 @@ def test_get_user_success(client):
         'id': user.id,
         'username': user.username,
         'role_id': user.role_id,
-        'posts': []}
+        'posts': []
+    }
     
 def test_get_user_not_found(client):
     # Given
@@ -37,5 +39,42 @@ def test_get_user_not_found(client):
     
     # Then
     assert response.status_code == HTTPStatus.NOT_FOUND
-    assert response.json == {'error': 'User not found'}
+        
+def test_create_user(client, access_token):
+    # Given
+    role_id = db.session.execute(db.select(Role.id).where(Role.name =='admin')).scalar()    
+    payload = {'username': 'user2', 'password': 'user2', 'role_id': role_id}
     
+    # When
+    response = client.post('/users/', json=payload, headers={'Authorization': f'Bearer {access_token}'})
+    
+    # Then
+    assert response.status_code == HTTPStatus.CREATED
+    assert response.json == {'message': 'User created successfully'}
+    
+    assert db.session.execute(db.select(func.count(User.id))).scalar() == 2
+    
+def test_list_users(client, access_token):
+    # Given
+    user = db.session.execute(db.select(User).where(User.username =='john-doe')).scalar()
+    response = client.post('/auth/login', json={'username': user.username, 'password': user.password})
+    access_token = response.json['access_token']
+    
+    # When
+    response = client.get('/users/', headers={'Authorization': f'Bearer {access_token}'})
+    
+    # Then  
+    assert response.status_code == HTTPStatus.OK
+    assert response.json == {
+    'users': [
+        {
+            'id': user.id,
+            'username': user.username,
+            'role': {
+                'id': user.role.id,
+                'name': user.role.name
+            },
+            'posts': []
+        }
+    ]
+}

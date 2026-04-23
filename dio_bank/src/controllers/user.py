@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 from flask import Blueprint, request
 from dio_bank.src.app import User, db
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from dio_bank.src.utils import requires_role
 
 from sqlalchemy import inspect
@@ -52,7 +52,7 @@ def _list_users():
 @requires_role('admin')
 def list_or_create_user():
     
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     user = db.get_or_404(User, user_id)
     
     if user.role.name != 'admin':
