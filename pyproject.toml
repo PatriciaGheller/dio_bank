@@ -30,6 +30,8 @@ flask-migrate = "*"
 flask-jwt-extended = "^4.7.1"
 pytest = "*"
 pytest-mock = "*"
+psycopg2-binary = "*"
+gunicorn = "*"
 
 [pytest]
 addopts = "-ra -vvv"

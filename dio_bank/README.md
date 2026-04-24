@@ -74,7 +74,7 @@ O schema inicial está definido em schema.sql.
 
 1. Clone este repositório:
 
-git clone <https://github.com/seu-usuario/dio-bank-api.git>
+git clone https://github.com/seu-usuario/dio-bank-api.git
 cd dio-bank-api
 
 1. Crie o ambiente virtual com Poetry:
@@ -94,7 +94,7 @@ Para rodar o servidor em modo debug:
 poetry run flask --app dio_bank.src.app run --debug
 
 A aplicação estará disponível em:
-<http://127.0.0.1:5000>
+http://127.0.0.1:5000
 
 ---
 
@@ -158,16 +158,16 @@ poetry run pytest
 
 Criando um usuário via curl:
 
-curl -X POST <http://127.0.0.1:5000/users> \
+curl -X POST http://127.0.0.1:5000/users \
 -H "Content-Type: application/json" \
--d '{"name": "Patricia", "email": "<patricia@example.com>"}'
+-d '{"name": "Patricia", "email": "patricia@example.com"}'
 
 Resposta esperada:
 
 {
   "id": 1,
   "name": "Patricia",
-  "email": "<patricia@example.com>"
+  "email": "patricia@example.com"
 }
 
 ## 📈 Próximos passos
@@ -183,8 +183,8 @@ Resposta esperada:
 ## 👩‍💻 Autora
 
 Projeto desenvolvido por Patrícia Gheller  
-GitHub: <https://github.com/PatriciaGheller> (github.com in Bing)  
-LinkedIn: <https://www.linkedin.com/in/patriciagheller> (linkedin.com in Bing)
+GitHub: https://github.com/PatriciaGheller (github.com in Bing)  
+LinkedIn: https://www.linkedin.com/in/patriciagheller (linkedin.com in Bing)
 
 ## 📜 Licença
 
