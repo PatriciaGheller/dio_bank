@@ -99,13 +99,14 @@ dio_bank/
 
 ### Criar role
 
-```http
+http
 POST /roles
 {
   "name": "admin"
 }
 
-## Criar usuário
+### Criar usuário
+
 
 POST /users
 {
