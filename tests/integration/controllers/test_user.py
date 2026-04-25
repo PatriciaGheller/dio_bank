@@ -1,8 +1,8 @@
 from http import HTTPStatus
 
 from sqlalchemy import func
-from dio_bank.src.app import Role,  User, db
-from dio_bank.src.controllers import user
+from src.app import Role,  User, db
+from src.controllers import user
 
 def test_get_user_success(client):
     # Given

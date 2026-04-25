@@ -1,5 +1,5 @@
 import pytest
-from dio_bank.src.app import Role, User, create_app, db
+from src.app import Role, User, create_app, db
 
 
 @pytest.fixture
