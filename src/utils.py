@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
 from flask_jwt_extended import get_jwt_identity
-from dio_bank.src.app import User, db
+from models import User, db
 from functools import wraps
 
 def requires_role(role_name):
