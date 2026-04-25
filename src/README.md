@@ -1,85 +1,121 @@
-# 📘 DIO Blog API 🏦
-https://img.shields.io/badge/Python-3.12-blue?logo=python  
-https://img.shields.io/badge/Flask-2.3-lightgrey?logo=flask  
-https://img.shields.io/badge/SQLAlchemy-2.0-red?logo=sqlite  
-https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow
+# 📘 DIO Bank API 🏦
 
-Uma aplicação desenvolvida em Flask para estudo de criação de APIs REST, com foco em usuários e posts.
+![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python)
+![Flask](https://img.shields.io/badge/Flask-2.3-lightgrey?logo=flask)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0-red?logo=sqlite)
+![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow)
+
+API desenvolvida em Flask para estudo de criação de APIs REST, com foco em usuários, roles e posts.  
 O projeto foi construído durante práticas de desenvolvimento de APIs com Python e Flask.
 
-# 🚀 Funcionalidades
+---
 
-### - CRUD de Usuários
-- Criar, listar, buscar, atualizar e deletar usuários
-### - CRUD de Posts
-- Criar, listar, buscar, atualizar e deletar posts
-### - Relação entre Usuários ↔ Posts
-- Cada post pertence a um usuário
-- Cada usuário pode ter vários posts
-### - Respostas enriquecidas:
-- Posts retornam o author_username
-- Usuários retornam seus posts
-- Migrations com Alembic & Flask-Migrate
+## 🚀 Funcionalidades
 
-# 🛠️ Tecnologias utilizadas
+- CRUD de Usuários  
+- CRUD de Roles  
+- CRUD de Posts  
+- Relação entre Usuários ↔ Roles ↔ Posts  
+- Respostas enriquecidas (posts retornam `author_username`, usuários retornam seus posts)  
+- Migrations com Alembic & Flask-Migrate  
 
-- [Python 3.12](https://www.python.org/)
-- [Flask](https://flask.palletsprojects.com/)
-- [SQLAlchemy](https://www.sqlalchemy.org/)
-- [SQLite](https://www.sqlite.org/)
-- [Insomnia](https://insomnia.rest/)
-- [Alembic](https://alembic.sqlalchemy.org/) 
+---
+
+## 🛠️ Tecnologias utilizadas
+
+- [Python 3.12](https://www.python.org/)  
+- [Flask](https://flask.palletsprojects.com/)  
+- [SQLAlchemy](https://www.sqlalchemy.org/)  
+- [PostgreSQL](https://www.postgresql.org/)  
+- [Insomnia](https://insomnia.rest/)  
+- [Alembic](https://alembic.sqlalchemy.org/)  
 - [Flask-Migrate](https://flask-migrate.readthedocs.io/)
+- - [Render](https://render.com/) → plataforma de deploy em nuvem. Permite **publicar aplicações Flask** e acessá-las remotamente por um endereço de servidor. Ideal para colocar produtos em produção e disponibilizar para todos.
+- [DBeaver](https://dbeaver.io/) → ferramenta de administração de banco de dados. Usada para **visualizar, editar e gerenciar** o PostgreSQL da aplicação.
 
-# 📂 Estrutura do projeto
+---
+
+## 🌐 Deploy
+
+A aplicação está publicada no **Render** e pode ser acessada remotamente pelo seguinte endereço:
+
+👉 [Acessar aplicação](https://dio-bank-868m.onrender.com)
+
+---
+
+## 📂 Estrutura do projeto
 
 dio_bank/
 │
 ├── src/
 │   ├── app.py              # Configuração principal da aplicação Flask
-│   ├── models.py           # Definição das classes User e Post
-│   └── controllers/
-│       ├── user.py         # Rotas e lógica de usuários
-│       └── post.py         # Rotas e lógica de posts
+│   ├── wsgi.py             # Ponto de entrada WSGI
+│   ├── utils.py            # Funções auxiliares
+│   ├── models/             # Definição das classes User, Role e Post
+│   │   ├── user.py
+│   │   ├── role.py
+│   │   └── post.py
+│   └── controllers/        # Rotas e lógica de negócio
+│       ├── auth.py
+│       ├── user.py
+│       ├── role.py
+│       └── post.py
 │
+├── migrations/             # Controle de versão do banco (Alembic)
+├── tests/                  # Testes de integração
 └── README.md               # Documentação do projeto
 
-# 🔗 Endpoints
+---
 
-## 👤 Usuários
+## 🔗 Endpoints
 
-- POST /users → cria usuário
+### 👤 Usuários
 
-- GET /users → lista todos os usuários (com posts)
+- `POST /users` → cria usuário  
+- `GET /users` → lista todos os usuários (com posts)  
+- `GET /users/<id>` → busca usuário específico (com posts)  
+- `PATCH /users/<id>` → atualiza usuário  
+- `DELETE /users/<id>` → remove usuário  
 
-- GET /users/<id> → busca usuário específico (com posts)
+### 📝 Posts
 
-- PATCH /users/<id> → atualiza usuário
+- `POST /posts` → cria post vinculado a um usuário  
+- `GET /posts` → lista todos os posts (com nome do autor)  
+- `GET /posts/<id>` → busca post específico  
+- `PATCH /posts/<id>` → atualiza post  
+- `DELETE /posts/<id>` → remove post  
 
-- DELETE /users/<id> → remove usuário
+### 🔑 Roles
 
-# 📝 Posts
+- `POST /roles` → cria role  
+- `GET /roles` → lista roles  
+- `GET /roles/<id>` → busca role específica  
+- `PATCH /roles/<id>` → atualiza role  
+- `DELETE /roles/<id>` → remove role  
 
-- POST /posts → cria post vinculado a um usuário
+---
 
-- GET /posts → lista todos os posts (com nome do autor)
+## 📖 Exemplos de uso
 
-- GET /posts/<id> → busca post específico
+### Criar role
 
-- PATCH /posts/<id> → atualiza post
+```http
+POST /roles
+{
+  "name": "admin"
+}
 
-- DELETE /posts/<id> → remove post
-
-# 📖 Exemplos de uso
-
-### Criar usuário
+## Criar usuário
 
 POST /users
 {
-  "username": "Breno"
+  "username": "Breno",
+  "password": "123mudar",
+  "active": true,
+  "role_id": 1
 }
 
-### Criar post
+## Criar post
 
 POST /posts
 {
@@ -88,27 +124,7 @@ POST /posts
   "author_id": 2
 }
 
-### Listar usuários
-
-GET /users
-{
-  "users": [
-    {
-      "id": 2,
-      "username": "Breno",
-      "posts": [
-        {
-          "id": 2,
-          "title": "Meu primeiro post",
-          "body": "Estou aprendendo Flask!",
-          "created": "2026-01-27T21:31:53"
-        }
-      ]
-    }
-  ]
-}
-
-# 📌 Como rodar o projeto
+## 📌 Como rodar o projeto
 
 1. Clone este repositório:
 
@@ -119,36 +135,22 @@ cd dio-bank-api
 
 poetry install
 
-3. Execute a aplicação:
+3. Configure variáveis de ambiente (exemplo em .env):
 
-flask run
+FLASK_APP=src/app.py
+FLASK_ENV=development
+DATABASE_URL=postgresql://usuario:senha@localhost:5432/diobank
 
-4. Teste os endpoints com Insomnia ou cURL.
+4. Inicialize o banco:
 
-5. Gerenciar banco de dados com Flask-Migrate
+poetry run flask --app src/app db migrate -m "cria tabelas iniciais"
+poetry run flask --app src/app db upgrade
 
-## Inicializar migrações
+5. Execute a aplicação:
 
-- flask --app dio_bank.src.app:create_app db init
+poetry run flask --app src/app run
 
-Criar nova migração
-
-- flask --app dio_bank.src.app:create_app db migrate -m "Initial migration"
-
-Aplicar migração
-
-- flask --app dio_bank.src.app:create_app db upgrade
-
-Verificar estado do banco
-
-- flask --app dio_bank.src.app:create_app db check
-
-Reverter última migração
-
-- flask --app dio_bank.src.app:create_app db downgrade
-
-
-# 🎯 Próximos passos
+## 🎯 Próximos passos
 
 - Adicionar comentários nos posts
 
@@ -160,7 +162,6 @@ Reverter última migração
 
 - Implementar paginação em listagens
 
-# 👩‍💻 Autora
+## 👩‍💻 Autora
 
 Projeto desenvolvido por Patrícia Gheller como parte dos estudos de desenvolvimento de APIs com Flask.
-
