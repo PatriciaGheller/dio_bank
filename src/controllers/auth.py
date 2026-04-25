@@ -1,10 +1,7 @@
 from http import HTTPStatus
-
 from flask import Blueprint, request
 from flask_jwt_extended import create_access_token
-from dio_bank.src.app import User, db
-
-from dio_bank.src.controllers import post
+from models import db, User
 
 app = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -18,5 +15,4 @@ def login():
         return {"msg": "Bad username or password"}, HTTPStatus.UNAUTHORIZED
 
     access_token = create_access_token(identity=str(user.id))
-    return {'access_token':access_token}
-
+    return {'access_token': access_token}

@@ -1,8 +1,6 @@
 from http import HTTPStatus
-
 from flask import Blueprint, request
-from dio_bank.src.app import Role, User, db
-from dio_bank.src.controllers import post
+from models import db, Role, User
 
 app = Blueprint('role', __name__, url_prefix='/roles')
 
