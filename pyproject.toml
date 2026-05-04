@@ -1,49 +1,16 @@
-[tool.poetry]
-
-name = "dio_bank"
-version = "0.1.0"
-description = "Projeto Flask para banco digital"
-authors = ["Patrícia Gheller <patricia.gheller.1985@gmail.com>"]
-readme = "README.md"
-package-mode = false
-
-[tool.poetry.dependencies]
-python = ">=3.11,<3.15"
-flask = "^3.0.0"
-gunicorn = "^22.0.0"
-flask-sqlalchemy = "^3.1.1"
-flask-migrate = "^4.1.0"
-flask-jwt-extended = "^4.7.1"
-psycopg2-binary = "^2.9.12"
-
+[project]
 name = "desenvolvimento-de-apis-flask"
 version = "0.1.0"
-description = "API Flask de exemplo"
-authors = ["Patrícia Gheller <patricia.gheller.1985@gmail.com>"]
-package-mode = false
-
-[tool.poetry.dependencies]
-python = ">=3.12, <4"
-flask = "^3.1.2"
-flask-sqlalchemy = "*"
-flask-migrate = "*"
-flask-jwt-extended = "^4.7.1"
-pytest = "*"
-pytest-mock = "*"
-psycopg2-binary = "*"
-gunicorn = "*"
-
-[pytest]
-addopts = "-ra -vvv"
-testpaths = ["tests"]
+description = ""
+authors = [
+    {name = "Patrícia Gheller",email = "patricia.gheller.1985@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+]
 
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
-
-[dependency-groups]
-dev = [
-    "black (>=26.1.0,<27.0.0)",
-    "pytest (>=9.0.3,<10.0.0)"
-]
