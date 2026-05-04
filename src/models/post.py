@@ -1,7 +1,7 @@
 import sqlalchemy as sa
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
-from . import db
+from src.models.models import db
 
 class Post(db.Model):
     id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)

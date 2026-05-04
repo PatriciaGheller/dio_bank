@@ -2,13 +2,13 @@ from http import HTTPStatus
 
 from flask import Blueprint, request
 from flask_jwt_extended import create_access_token
-from dio_bank.src.app import User, db
+from dio_bank.src.models.models import User, db
 
 from dio_bank.src.controllers import post
 
-app = Blueprint('auth', __name__, url_prefix='/auth')
+bp = Blueprint('auth', __name__, url_prefix='/auth')
 
-@app.route("/login", methods=["POST"])
+@bp.route("/login", methods=["POST"])
 def login():
     username = request.json.get("username", None)
     password = request.json.get("password", None)

@@ -1,15 +1,26 @@
-[project]
+[tool.poetry]
 name = "desenvolvimento-de-apis-flask"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "Patrícia Gheller",email = "patricia.gheller.1985@gmail.com"}
-]
+authors = ["Patrícia Gheller <patricia.gheller.1985@gmail.com>"]
 readme = "README.md"
-requires-python = ">=3.14"
-dependencies = [
+package-mode = true
+
+# Se o seu código principal está dentro da pasta "src"
+packages = [
+    { include = "src" }
 ]
 
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+flask = ">=3.1.3,<4.0.0"
+flask-migrate = ">=4.1.0,<5.0.0"
+flask-jwt-extended = ">=4.7.1,<5.0.0"
+psycopg2-binary = "^2.9.12"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-mock = "^3.12.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

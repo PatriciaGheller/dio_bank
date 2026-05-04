@@ -1,15 +1,14 @@
 from http import HTTPStatus
 
 from flask import Blueprint, request
-from dio_bank.src.app import User, db
+from dio_bank.src.models.models import User, db
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from dio_bank.src.utils import requires_role
 
 from sqlalchemy import inspect
 
-from dio_bank.src.controllers import post
 
-app = Blueprint('user', __name__, url_prefix='/users')
+bp = Blueprint('user', __name__, url_prefix='/users')
 
 def _create_user():
     data = request.json
@@ -47,7 +46,7 @@ def _list_users():
     ]
     
 
-@app.route('/', methods=['GET', 'POST'])
+@bp.route('/', methods=['GET', 'POST'])
 @jwt_required()
 @requires_role('admin')
 def list_or_create_user():
@@ -64,7 +63,7 @@ def list_or_create_user():
     else:
         return {'users': _list_users()}
     
-@app.route('/<int:user_id>', methods=['GET'])
+@bp.route('/<int:user_id>', methods=['GET'])
 def get_user(user_id):
     user = db.session.get(User, user_id)
     if not user:
@@ -85,7 +84,7 @@ def get_user(user_id):
 }
     
     
-@app.route('/<int:user_id>', methods=['PATCH'])
+@bp.route('/<int:user_id>', methods=['PATCH'])
 def update_user(user_id):
     user = db.get_or_404(User, user_id)
     data = request.json
@@ -94,7 +93,7 @@ def update_user(user_id):
     for column in mapper.attrs:
         if column.key in data:
             setattr(user, column.key, data[column.key])
-        db.session.commit()
+    db.session.commit()
         
     return {
         'id': user.id,
@@ -102,7 +101,7 @@ def update_user(user_id):
         }
     
     
-@app.route('/<int:user_id>', methods=['DELETE'])
+@bp.route('/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
     user = db.get_or_404(User, user_id)
     db.session.delete(user)

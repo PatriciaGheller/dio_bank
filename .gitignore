@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Created by https://www.toptal.com/developers/gitignore/api/python,flask
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,flask
 
@@ -277,5 +277,3 @@ __pycache__/
 .env
 *.sqlite3
 
-
->>>>>>> a088534 (Adiciona .gitignore e limpa arquivos desnecessários)

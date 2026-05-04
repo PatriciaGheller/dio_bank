@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from dio_bank.src.app import Post, db
+from dio_bank.src.models.models import Post, db
 from http import HTTPStatus
 from sqlalchemy import inspect
 

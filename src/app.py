@@ -4,7 +4,7 @@ from flask import Flask, current_app
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 
-from models import db  # importa db e modelos
+from src.models.models import db  # importa db e modelos
 
 migrate = Migrate()
 jwt = JWTManager()
@@ -20,7 +20,7 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        SQLALCHEMY_DATABASE_URI=os.environ['DATABASE_URL'],
+        SQLALCHEMY_DATABASE_URI="postgresql://postgres:12345@localhost:5432/dio_bank",
         JWT_SECRET_KEY='minha_chave_super_secreta_de_32_caracteres_ou_mais',
     )
 
@@ -43,10 +43,10 @@ def create_app(test_config=None):
     jwt.init_app(app)
 
     # Register blueprints
-    from controllers import user, role, post, auth
-    app.register_blueprint(user.app)
-    app.register_blueprint(role.app)
+    from src.controllers import user, role, post, auth
+    app.register_blueprint(user.bp)
+    app.register_blueprint(role.bp)
     app.register_blueprint(post.bp)
-    app.register_blueprint(auth.app)
+    app.register_blueprint(auth.bp)
 
     return app
