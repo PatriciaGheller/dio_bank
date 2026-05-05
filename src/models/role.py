@@ -1,6 +1,6 @@
 import sqlalchemy as sa
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from src.models.models import db
+from .models import db
 
 class Role(db.Model):
     id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
