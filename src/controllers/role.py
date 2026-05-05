@@ -1,10 +1,10 @@
 from http import HTTPStatus
 from flask import Blueprint, request
-from models import db, Role, User
+from src.models.models import db, Role, User
 
-app = Blueprint('role', __name__, url_prefix='/roles')
+bp = Blueprint('role', __name__, url_prefix='/roles')
 
-@app.route('/', methods=['POST'])
+@bp.route('/', methods=['POST'])
 def create_role():
     data = request.json
     role = Role(name=data['name'])
