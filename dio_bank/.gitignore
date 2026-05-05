@@ -12,6 +12,10 @@ instance/*
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
+*.pyo
+*.sqlite
+instance/
 
 # C extensions
 *.so
