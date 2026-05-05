@@ -16,18 +16,9 @@ def init_db_command():
         db.create_all()
     click.echo('Initialized the database.')
 
-def create_app(test_config=None):
+def create_app(environment=os.environ['ENVIRONMENT']):
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(
-        SECRET_KEY='dev',
-        SQLALCHEMY_DATABASE_URI="sqlite:///blog.sqlite",
-        JWT_SECRET_KEY='minha_chave_super_secreta_de_32_caracteres_ou_mais',
-    )
-
-    if test_config is None:
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        app.config.from_mapping(test_config)
+    app.config.from_object(f'src.config.{environment.title()}Config')
 
     try:
         os.makedirs(app.instance_path)
