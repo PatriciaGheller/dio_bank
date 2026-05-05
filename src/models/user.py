@@ -1,6 +1,9 @@
 import sqlalchemy as sa
-from sqlalchemy.orm import Mapped, mapped_column, relationship
-from .models import db
+from sqlalchemy.orm import Mapped, mapped_column, relationship, DeclarativeBase
+
+
+from .base import db
+from .post import Post
 
 class User(db.Model):
     id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
@@ -8,5 +11,9 @@ class User(db.Model):
     password: Mapped[str] = mapped_column(sa.String, nullable=False)
     active: Mapped[bool] = mapped_column(sa.Boolean, default=True)
     role_id: Mapped[int] = mapped_column(sa.Integer, sa.ForeignKey('role.id', name="fk_user_role_id"))
-    role: Mapped["Role"] = relationship("Role", back_populates="user")
-    posts: Mapped[list["Post"]] = relationship("Post", back_populates="author")
+    role: Mapped["role.Role"] = relationship(back_populates="user")
+    # relação com Post 
+    posts: Mapped[list["Post"]] = db.relationship("Post", back_populates="author")
+    
+    def __repr__(self) -> str:
+        return f"User(id={self.id!r}, username={self.username!r}, active={self.active!r})"
