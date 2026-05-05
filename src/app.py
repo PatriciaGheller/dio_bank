@@ -4,7 +4,8 @@ from flask import Flask, current_app
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 
-from src.models.models import db  # importa db e modelos
+from src.models import models 
+db = models.db  # importa db e modelos
 
 migrate = Migrate()
 jwt = JWTManager()
@@ -20,7 +21,7 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        SQLALCHEMY_DATABASE_URI="postgresql://postgres:12345@localhost:5432/dio_bank",
+        SQLALCHEMY_DATABASE_URI="sqlite:///blog.sqlite",
         JWT_SECRET_KEY='minha_chave_super_secreta_de_32_caracteres_ou_mais',
     )
 
