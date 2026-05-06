@@ -11,7 +11,7 @@ class User(db.Model):
     password: Mapped[str] = mapped_column(sa.String, nullable=False)
     active: Mapped[bool] = mapped_column(sa.Boolean, default=True)
     role_id: Mapped[int] = mapped_column(sa.Integer, sa.ForeignKey('role.id', name="fk_user_role_id"))
-    role: Mapped["role.Role"] = relationship(back_populates="user")
+    role: Mapped["Role"] = relationship(back_populates="user")
     # relação com Post 
     posts: Mapped[list["Post"]] = db.relationship("Post", back_populates="author")
     

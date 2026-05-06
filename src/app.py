@@ -43,4 +43,19 @@ def create_app(environment=os.environ['ENVIRONMENT']):
     app.register_blueprint(post.bp)
     app.register_blueprint(auth.bp)
 
-    return app
+    from flask import json
+    from  werkzeug.exceptions import HTTPException
+
+    @app.errorhandler(HTTPException)
+    def handle_exception(e):
+        
+        response = e.get_response()
+        response.data = json.dumps({
+            "code": e.code,
+            "name": e.name,
+            "description": e.description,
+        })
+        response.content_type = "application/json"
+        return response
+
+        return app
