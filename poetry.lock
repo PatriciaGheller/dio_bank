@@ -21,6 +21,29 @@ typing-extensions = ">=4.12"
 tz = ["tzdata"]
 
 [[package]]
+name = "apispec"
+version = "6.10.0"
+description = "A pluggable API specification generator. Currently supports the OpenAPI Specification (f.k.a. the Swagger specification)."
+optional = false
+python-versions = ">=3.10"
+groups = ["main"]
+files = [
+    {file = "apispec-6.10.0-py3-none-any.whl", hash = "sha256:8ff23e0de9a0ceb62ff70047241126315bd17b8d0565a567934c0156f4ddbb43"},
+    {file = "apispec-6.10.0.tar.gz", hash = "sha256:0a888555cd4aa5fb7176041be15684154fd8961055e1672e703abf737e8761bf"},
+]
+
+[package.dependencies]
+marshmallow = {version = ">=3.18.0", optional = true, markers = "extra == \"marshmallow\""}
+packaging = ">=21.3"
+
+[package.extras]
+dev = ["apispec[tests]", "pre-commit (>=3.5,<5.0)", "tox"]
+docs = ["apispec[marshmallow]", "pyyaml (==6.0.3)", "sphinx (==9.1.0)", "sphinx-issues (==5.0.1)", "sphinx-rtd-theme (==3.1.0)"]
+marshmallow = ["marshmallow (>=3.18.0)"]
+tests = ["apispec[marshmallow,yaml]", "openapi-spec-validator (==0.8.4)", "pytest"]
+yaml = ["PyYAML (>=3.10)"]
+
+[[package]]
 name = "bcrypt"
 version = "5.0.0"
 description = "Modern password hashing for your software and your servers"
@@ -522,7 +545,7 @@ version = "26.2"
 description = "Core utilities for Python packages"
 optional = false
 python-versions = ">=3.8"
-groups = ["dev"]
+groups = ["main", "dev"]
 files = [
     {file = "packaging-26.2-py3-none-any.whl", hash = "sha256:5fc45236b9446107ff2415ce77c807cee2862cb6fac22b8a73826d0693b0980e"},
     {file = "packaging-26.2.tar.gz", hash = "sha256:ff452ff5a3e828ce110190feff1178bb1f2ea2281fa2075aadb987c2fb221661"},
@@ -829,4 +852,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<4.0"
-content-hash = "3fbbce81c04c49537ee02d70b20c9ba9ddce49d4d8197395c574a6449884b20d"
+content-hash = "6add184bb9187f4764120a2d3a28df2f3f618768ee0b85e7b9ace75feafa141a"

@@ -20,6 +20,7 @@ psycopg2-binary = "^2.9.12"
 flask-bcrypt = "*"
 flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
+apispec = {extras = ["marshmallow"], version = "^6.10.0"}
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
