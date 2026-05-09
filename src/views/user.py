@@ -1,11 +1,13 @@
 from src.app import ma
 from src.views.role import RoleSchema
 from marshmallow import filds
+from src.models.user import User
 
-class UserSchema(ma.Schema):
+class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        fields = ('id', 'username', 'role')
-    role = ma.Nested('RoleSchema', only=['id', 'name'])
+        model = User
+        include_fk = True
+        load_instance = True
     
 class CreateUserSchema(ma.Schema):
     username = filds.Str(required=True)
