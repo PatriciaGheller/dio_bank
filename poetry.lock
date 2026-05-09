@@ -198,6 +198,25 @@ Werkzeug = ">=0.14"
 asymmetric-crypto = ["cryptography (>=3.3.1)"]
 
 [[package]]
+name = "flask-marshmallow"
+version = "1.5.0"
+description = "Flask + marshmallow for beautiful APIs"
+optional = false
+python-versions = ">=3.10"
+groups = ["main"]
+files = [
+    {file = "flask_marshmallow-1.5.0-py3-none-any.whl", hash = "sha256:99951c77e5654111ed733811c6dc9310bfb4c3688c78a9e76f80b5ae0b2279a6"},
+    {file = "flask_marshmallow-1.5.0.tar.gz", hash = "sha256:7c06b56e41647eccdb3cd57c25b109f19191b4c62509362bd64920cdf601a066"},
+]
+
+[package.dependencies]
+Flask = ">=2.2"
+marshmallow = ">=4.0.0"
+
+[package.extras]
+sqlalchemy = ["flask-sqlalchemy (>=3.0.0)", "marshmallow-sqlalchemy (>=1.4.0)"]
+
+[[package]]
 name = "flask-migrate"
 version = "4.1.0"
 description = "SQLAlchemy database migrations for Flask applications using Alembic."
@@ -467,6 +486,18 @@ files = [
     {file = "markupsafe-3.0.3-cp39-cp39-win_amd64.whl", hash = "sha256:7c3fb7d25180895632e5d3148dbdc29ea38ccb7fd210aa27acbd1201a1902c6e"},
     {file = "markupsafe-3.0.3-cp39-cp39-win_arm64.whl", hash = "sha256:38664109c14ffc9e7437e86b4dceb442b0096dfe3541d7864d9cbe1da4cf36c8"},
     {file = "markupsafe-3.0.3.tar.gz", hash = "sha256:722695808f4b6457b320fdc131280796bdceb04ab50fe1795cd540799ebe1698"},
+]
+
+[[package]]
+name = "marshmallow"
+version = "4.3.0"
+description = "A lightweight library for converting complex datatypes to and from native Python datatypes."
+optional = false
+python-versions = ">=3.10"
+groups = ["main"]
+files = [
+    {file = "marshmallow-4.3.0-py3-none-any.whl", hash = "sha256:46c4fe6984707e3cbd485dfebbf0a59874f58d695aad05c1668d15e8c6e13b46"},
+    {file = "marshmallow-4.3.0.tar.gz", hash = "sha256:fb43c53b3fe240b8f6af37223d6ef1636f927ad9bea8ab323afad95dff090880"},
 ]
 
 [[package]]
@@ -782,4 +813,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<4.0"
-content-hash = "d4b266db8ecd1126dbcc8c9a99c20154dce08292d161bcf8e3cbf17c406cb875"
+content-hash = "944909579194f652bdf941a335866b0c012c7fa58b81ef5df4cb564a160e8c24"

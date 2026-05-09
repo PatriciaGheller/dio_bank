@@ -4,6 +4,8 @@
 ![Flask](https://img.shields.io/badge/Flask-2.3-lightgrey?logo=flask)
 ![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0-red?logo=sqlite)
 ![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow)
+![Flask-Marshmallow](https://img.shields.io/badge/Flask--Marshmallow-1.0-blue?logo=flask)
+
 
 ## 📌 Sobre o projeto
 
