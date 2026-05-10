@@ -12,3 +12,23 @@ def create_role():
     db.session.add(role)
     db.session.commit()
     return {'message': 'Role created'}, HTTPStatus.CREATED
+
+@bp.route('/roles', methods=['GET'])
+def list_roles():
+        """
+    Lista todas as roles
+    ---
+    tags:
+      - role
+    responses:
+      200:
+        description: Lista de roles
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Role'
+    """
+        roles = Role.query.all()
+        return {'roles': [role.name for role in roles]}

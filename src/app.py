@@ -1,18 +1,29 @@
 import os
-import click
-from flask import Flask, app, current_app
+
+from apispec import APISpec
+from apispec.ext.marshmallow import MarshmallowPlugin
+from apispec_webframeworks.flask import FlaskPlugin
+from flask import Flask, jason
 from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager
+from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from src.models.base import db
-from flask_jwt_extended import JWTManager
-from flask-marshmallow import Marshmallow
-
+from werkzeug.exceptions import HTTPException
+from flask import current_app
 
 
 migrate = Migrate()
 jwt = JWTManager()
 bcrypt = Bcrypt()
-ma = Marshmallow()  
+ma = Marshmallow()
+spec = APISpec(
+    title='DIO Bank',
+    version= '1.0.0',
+    asyncapi= '2.6.0',
+    info=dict(description='DIO Bank API'),
+    plugins=[FlaskPlugin(), MarshmallowPlugin()]
+)
 
 @click.command('init-db')
 def init_db_command():
@@ -42,10 +53,15 @@ def create_app(environment=os.environ['ENVIRONMENT']):
 
     # Register blueprints
     from src.controllers import user, role, post, auth
+    
     app.register_blueprint(user.bp)
     app.register_blueprint(role.bp)
     app.register_blueprint(post.bp)
     app.register_blueprint(auth.bp)
+    
+    @app.route('/docs')
+    def docs():
+        return spec.path(view=user.delete_user).path(view=user.get_user).to_dict()
 
     from flask import json
     from  werkzeug.exceptions import HTTPException

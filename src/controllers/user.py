@@ -50,13 +50,53 @@ def list_or_create_users():
     
 @bp.route('/<int:user_id>')
 def get_user(user_id):
+    """User detail view.
+    ---
+    get:
+        tags:
+            - User
+      parameters:
+        - in: path
+          name: user_id
+          schema: UserIdParameter
+      responses:
+        200:
+          description: Sucessful operation
+          content:
+            application/json:
+              schema: UserSchema
+                
+    """
     user = db.session.get(User, user_id)
     return {
         'id': user.id,
         'username': user.username,
     }
     
-
+@app.route('/<int:user_id>', methods=['DELETE'])
+def delete_user(user_id):
+    """User delete view.
+    ---
+    delete:
+        tags:
+            - User
+        summary: Delete a user 
+        description: Delete a user
+      parameters:
+        - in: path
+          name: user_id
+          schema: UserIdParameter
+        responses:
+            204:
+                description: Successfully operation
+            404:
+                description: User not found
+                
+    """
+    user = db.get_or_404(User, user_id)
+    db.session.delete(user)
+    db.session.commit()
+    return '', HTTPStatus.NO_CONTENT
     
 
 

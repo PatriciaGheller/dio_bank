@@ -7,7 +7,10 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = User
         include_fk = True
-        load_instance = True
+        
+class UserIdParameter(ma.Schema):
+    user_id = filds.Int(required=True, strict=True)
+        
     
 class CreateUserSchema(ma.Schema):
     username = filds.Str(required=True)
