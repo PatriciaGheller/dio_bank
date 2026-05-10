@@ -176,7 +176,7 @@ Resposta esperada:
 
 - Implementar autenticação JWT ✅
 
-- Criar documentação Swagger/OpenAPI
+- Criar documentação Swagger/OpenAPI ✅
 
 - Adicionar testes de integração
 
